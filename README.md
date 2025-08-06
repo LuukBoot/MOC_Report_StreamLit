@@ -20,7 +20,8 @@ A secure Streamlit application with Google OIDC authentication and user authoriz
 4. Go to "Credentials" and create an OAuth 2.0 Client ID
 5. Set the authorized redirect URIs:
    - For localhost: `http://localhost:8501/`
-   - For Streamlit Cloud: `https://your-app-name.streamlit.app/`
+   - For Streamlit Cloud: `https://blank-app-w3ugasonfc.streamlit.app/`
+   - For streamlit shere comunit: `https://share.streamlit.io/`
 
 ### 2. Local Development Setup
 
