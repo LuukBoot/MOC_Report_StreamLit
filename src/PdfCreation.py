@@ -68,14 +68,14 @@ class TradeReportPDF(FPDF):
         self.ln(3)
 
     def add_overview_section(self, product_name: str, overview: OverView, offers: List[str], bids: List[str]):
-        print("het werkt111111111")
         self.set_font("Helvetica", "B", 14)
         self.cell(0, 8, f"{product_name} - Overview", ln=True)
         self.set_fill_color(34, 139, 34)
         self.set_text_color(255, 255, 255)
         self.set_font("Helvetica", "B", 11)
-        self.cell(40, 8, "What", 1, 0, "C", True)    # Wider "What" column
-        self.cell(120, 8, "Value", 1, 0, "C", True)  # Much wider "Value" column
+        # Make "What" column 50mm, "Value" column 120mm (wider)
+        self.cell(50, 8, "What", 1, 0, "C", True)
+        self.cell(140, 8, "Value", 1, 0, "C", True)
         self.ln()
         self.set_fill_color(255, 255, 255)
         self.set_text_color(0, 0, 0)
@@ -90,8 +90,11 @@ class TradeReportPDF(FPDF):
             ("Cumulative Average Price", f"${overview.cum_avg_price:.2f}" if overview.cum_avg_price is not None else "-"),
         ]
         for what, value in rows:
-            self.cell(40, 7, what, 1, 0, "L")
-            self.cell(120, 7, value, 1, 0, "L")
+            self.cell(50, 9, what, 1, 0, "L")  # Thicker row: height 9
+            x = self.get_x()
+            y = self.get_y()
+            self.multi_cell(140, 9, value, border=1, align="L")
+            self.set_xy(x + 140, y)
             self.ln()
         self.ln(3)
 

@@ -3,12 +3,16 @@ from typing import List
 from openai import OpenAI
 import json
 from .models import Trade, Offers_Bids, Windows, OverView, RawTradeText
+import streamlit as st
+
+
+openai_key = st.secrets["OPENAI_API_KEY"]
 
 
 
 client = OpenAI(
     # This is the default and can be omitted
-    api_key="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",
+    api_key=openai_key,
 )
 
 def extract_trades_from_rawtext(raw_trade: RawTradeText, date: str) -> List[Trade]:
