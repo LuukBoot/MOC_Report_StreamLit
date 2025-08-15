@@ -264,15 +264,42 @@ All volume up till now: 18.0
         4. File is saved to the `output/` directory
         """)
 
+def show_barging_update():
+    """Display the Barging Update tab with information about barging updates."""
+    
+    st.header("🚢 Barging Update")
+    
+    st.subheader("📅 Latest Updates")
+    st.info("This section will display the latest updates on barging activities.")
+    
+    # Example data (replace with actual data retrieval logic)
+    updates = [
+        {"date": "2024-01-15", "update": "Barging operations resumed after maintenance."},
+        {"date": "2024-01-14", "update": "Barging capacity increased by 20%."},
+        {"date": "2024-01-13", "update": "Weather conditions affecting barging schedules."}
+    ]
+    
+    for update in updates:
+        st.markdown(f"**{update['date']}:** {update['update']}")
+    
+    st.subheader("ℹ️ Instructions")
+    st.markdown("""
+    **How to use this tab:**
+    
+    - View the latest updates on barging activities
+    - Stay informed about changes in operations
+    """)
 
 def main():
     print("Starting MOC Report Streamlit App...")
     st.set_page_config(page_title="MOC Report", layout="wide")
-    tab1, tab2 = st.tabs(["Login", "MOC Report"])
+    tab1, tab2, tab3 = st.tabs(["Login", "MOC Report", "Barging Update"])
     with tab1:
         show_login_tab()
     with tab2:
         show_moc_report_tab()
+    with tab3:
+        show_barging_update()
 
 
 if __name__ == "__main__":
