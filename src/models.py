@@ -42,7 +42,7 @@ class OverView:
     date: str
     product: str
     avg_price: Optional[float]
-    cum_avg_price: Optional[float]
+    week_avg_price: Optional[float]
     cum_volume: Optional[float]
     total_volume: Optional[float]
     week_volume: Optional[float]

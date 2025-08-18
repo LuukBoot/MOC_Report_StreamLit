@@ -112,7 +112,7 @@ class ParsedReport:
                 date=self.date,
                 product=product,
                 avg_price=avg_price,
-                cum_avg_price=cum_avg_price,
+                week_avg_price=cum_avg_price,
                 cum_volume=cum_volume,
                 total_volume=total_volume,
                 week_volume=week_volume

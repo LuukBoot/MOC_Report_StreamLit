@@ -50,8 +50,8 @@ class TradeReportPDF(FPDF):
         self.cell(20, 8, "#", 1, 0, "C", True)
         self.cell(30, 8, "Price", 1, 0, "C", True)
         self.cell(30, 8, "Volume", 1, 0, "C", True)
-        self.cell(40, 8, "Buyer", 1, 0, "C", True)
-        self.cell(40, 8, "Seller", 1, 0, "C", True)
+        self.cell(40, 8, "Seller", 1, 0, "C", True)  # Swapped
+        self.cell(40, 8, "Buyer", 1, 0, "C", True)   # Swapped
         self.cell(30, 8, "Window", 1, 0, "C", True)
         self.ln()
         self.set_fill_color(255, 255, 255)
@@ -61,8 +61,8 @@ class TradeReportPDF(FPDF):
             self.cell(20, 6, str(idx), 1, 0, "C")
             self.cell(30, 6, f"${t.price:.2f}" if t.price is not None else "-", 1, 0, "C")
             self.cell(30, 6, f"{t.volume_kt:.2f}" if t.volume_kt is not None else "-", 1, 0, "C")
-            self.cell(40, 6, t.buyer or "-", 1, 0, "C")
-            self.cell(40, 6, t.seller or "-", 1, 0, "C")
+            self.cell(40, 6, t.seller or "-", 1, 0, "C")  # Swapped
+            self.cell(40, 6, t.buyer or "-", 1, 0, "C")   # Swapped
             self.cell(30, 6, t.window or "-", 1, 0, "C")
             self.ln()
         self.ln(3)
@@ -87,7 +87,7 @@ class TradeReportPDF(FPDF):
             ("Total Volume", f"{overview.total_volume:.2f} kt" if overview.total_volume is not None else "-"),
             ("Total Volume This Week", f"{overview.week_volume:.2f} kt" if overview.week_volume is not None else "-"),
             ("All Volume Up Till Now", f"{overview.cum_volume:.2f} kt" if overview.cum_volume is not None else "-"),
-            ("Cumulative Average Price", f"${overview.cum_avg_price:.2f}" if overview.cum_avg_price is not None else "-"),
+            ("Week Average Price", f"${overview.week_avg_price:.2f}" if overview.week_avg_price is not None else "-"),
         ]
         for what, value in rows:
             self.cell(50, 9, what, 1, 0, "L")  # Thicker row: height 9
@@ -112,7 +112,11 @@ def create_trade_report_pdf(file_path: str, date: str, trades: List[Trade], over
     products = sorted(set(t.product for t in trades))
     products = ["ULSD 10ppm barges", "50ppm barges"]
     print(f"Found products: {products}")
-    for product_name in products:
+    for idx, product_name in enumerate(products):
+        # Add a new page for the second product and beyond
+        if idx > 0:
+            pdf.add_page()
+        
         product_trades = [t for t in trades if t.product == product_name]
         product_overview = next((o for o in overviews if o.product == product_name), None)
         offers = [ob.participant for ob in offers_bids if ob.product == product_name and ob.type == "offer"]
