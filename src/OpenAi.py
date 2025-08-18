@@ -43,7 +43,8 @@ def extract_trades_from_rawtext(raw_trade: RawTradeText, date: str) -> List[Trad
                     "3. Include the exact original text for that trade in 'raw_text'.\n"
                     "4. Use null for any field where information is not present.\n"
                     "5. The number of JSON objects must equal the number of detected trades in the text.\n"
-                    "6. Do not include any text outside the JSON output."
+                    "6. Do not include any text outside the JSON output.\n"
+                    "7. The first company mentioned in each trade is always the seller, and the second company is always the buyer."
                 )
             },
             {
