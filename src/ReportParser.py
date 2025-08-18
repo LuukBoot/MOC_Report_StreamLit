@@ -89,17 +89,13 @@ class ParsedReport:
                         self.trades.append(RawTradeText(product=product, text=raw_text))
 
                 elif "Average Price" in line:
-                    match = re.search(r"\$([\d.]+)", line)
+                    # Try to match both "$-1.38" and "$ -1.38" and also handle possible tabs/spaces
+                    match = re.search(r"\$\s*(-?\d+(?:\.\d+)?)", line)
                     if match:
-                        # Check if this is the summary section (contains additional text after "Average Price")
                         if first_avg_price_found:
-                            # This is the cumulative/week average price (in summary section)
                             cum_avg_price = float(match.group(1))
                         else:
-                            # This is the day average price (usually after dashes)
                             avg_price = float(match.group(1))
-                            print("Day Average Price:", avg_price)
-                            print(avg_price)
                             first_avg_price_found = True
 
                 elif "Total Volume" in line and "this week" not in line:
