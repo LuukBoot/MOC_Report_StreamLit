@@ -58,6 +58,10 @@ class ParsedReport:
             cum_volume = None
             cum_avg_price = None
             first_avg_price_found = False
+            
+            print("Processing product:", product)
+            
+            
 
             for i, line in enumerate(lines[1:]):
                 if line.startswith("Offers"):
@@ -87,11 +91,16 @@ class ParsedReport:
                 elif "Average Price" in line:
                     match = re.search(r"\$([\d.]+)", line)
                     if match:
-                        if not first_avg_price_found:
-                            avg_price = float(match.group(1))
-                            first_avg_price_found = True
-                        else:
+                        # Check if this is the summary section (contains additional text after "Average Price")
+                        if first_avg_price_found:
+                            # This is the cumulative/week average price (in summary section)
                             cum_avg_price = float(match.group(1))
+                        else:
+                            # This is the day average price (usually after dashes)
+                            avg_price = float(match.group(1))
+                            print("Day Average Price:", avg_price)
+                            print(avg_price)
+                            first_avg_price_found = True
 
                 elif "Total Volume" in line and "this week" not in line:
                     match = re.search(r":\s*([\d.]+)", line)
@@ -111,7 +120,7 @@ class ParsedReport:
             self.overviews.append(OverView(
                 date=self.date,
                 product=product,
-                avg_price=avg_price,
+                day_avg_price=avg_price,
                 week_avg_price=cum_avg_price,
                 cum_volume=cum_volume,
                 total_volume=total_volume,

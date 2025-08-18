@@ -83,7 +83,7 @@ class TradeReportPDF(FPDF):
         rows = [
             ("Offers", ', '.join(offers) if offers else "-"),
             ("Bids", ', '.join(bids) if bids else "-"),
-            ("Average Price", f"${overview.avg_price:.2f}" if overview.avg_price is not None else "-"),
+            ("Average Price", f"${overview.day_avg_price:.2f}" if overview.day_avg_price is not None else "-"),
             ("Total Volume", f"{overview.total_volume:.2f} kt" if overview.total_volume is not None else "-"),
             ("Total Volume This Week", f"{overview.week_volume:.2f} kt" if overview.week_volume is not None else "-"),
             ("All Volume Up Till Now", f"{overview.cum_volume:.2f} kt" if overview.cum_volume is not None else "-"),

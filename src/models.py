@@ -41,7 +41,7 @@ class Windows:
 class OverView:
     date: str
     product: str
-    avg_price: Optional[float]
+    day_avg_price: Optional[float]
     week_avg_price: Optional[float]
     cum_volume: Optional[float]
     total_volume: Optional[float]
