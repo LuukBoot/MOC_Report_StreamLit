@@ -69,6 +69,54 @@ class TradeReportPDF(FPDF):
 
     def add_overview_section(self, product_name: str, overview: OverView, offers: List[str], bids: List[str]):
         self.set_font("Helvetica", "B", 14)
+        
+        # Prepare all rows first to calculate total height needed
+        rows = [
+            ("Offers", ', '.join(offers) if offers else "-"),
+            ("Bids", ', '.join(bids) if bids else "-"),
+            ("Average Price", f"${overview.day_avg_price:.2f}" if overview.day_avg_price is not None else "-"),
+            ("Total Volume", f"{overview.total_volume:.2f} kt" if overview.total_volume is not None else "-"),
+            ("Total Volume This Week", f"{overview.week_volume:.2f} kt" if overview.week_volume is not None else "-"),
+            ("All Volume Up Till Now", f"{overview.cum_volume:.2f} kt" if overview.cum_volume is not None else "-"),
+            ("Week Average Price", f"${overview.week_avg_price:.2f}" if overview.week_avg_price is not None else "-"),
+        ]
+        
+        # Calculate total height needed for the entire table
+        total_height = 8 + 8  # Title + header row height
+        base_height = 9
+        
+        self.set_font("Helvetica", "", 11)  # Set font for width calculations
+        for what, value in rows:
+            # Calculate lines needed for this row
+            lines_needed = 1
+            if self.get_string_width(value) > 140:
+                words = value.split()
+                current_line = ""
+                line_count = 1
+                for word in words:
+                    test_line = current_line + " " + word if current_line else word
+                    if self.get_string_width(test_line) > 140:
+                        line_count += 1
+                        current_line = word
+                    else:
+                        current_line = test_line
+                lines_needed = line_count
+            
+            row_height = base_height * lines_needed
+            total_height += row_height
+        
+        total_height += 3  # Bottom margin
+        
+        # Check if table fits on current page (leave 20mm margin from bottom)
+        page_height = 297  # A4 height in mm
+        bottom_margin = 20
+        available_height = page_height - self.get_y() - bottom_margin
+        
+        if total_height > available_height:
+            self.add_page()
+        
+        # Now draw the table
+        self.set_font("Helvetica", "B", 14)
         self.cell(0, 8, f"{product_name} - Overview", ln=True)
         self.set_fill_color(34, 139, 34)
         self.set_text_color(255, 255, 255)
@@ -80,24 +128,60 @@ class TradeReportPDF(FPDF):
         self.set_fill_color(255, 255, 255)
         self.set_text_color(0, 0, 0)
         self.set_font("Helvetica", "", 11)
-        rows = [
-            ("Offers", ', '.join(offers) if offers else "-"),
-            ("Bids", ', '.join(bids) if bids else "-"),
-            ("Average Price", f"${overview.day_avg_price:.2f}" if overview.day_avg_price is not None else "-"),
-            ("Total Volume", f"{overview.total_volume:.2f} kt" if overview.total_volume is not None else "-"),
-            ("Total Volume This Week", f"{overview.week_volume:.2f} kt" if overview.week_volume is not None else "-"),
-            ("All Volume Up Till Now", f"{overview.cum_volume:.2f} kt" if overview.cum_volume is not None else "-"),
-            ("Week Average Price", f"${overview.week_avg_price:.2f}" if overview.week_avg_price is not None else "-"),
-        ]
+        
         for what, value in rows:
-            self.cell(50, 9, what, 1, 0, "L")  # Thicker row: height 9
-            x = self.get_x()
-            y = self.get_y()
-            self.multi_cell(140, 9, value, border=1, align="L")
-            self.set_xy(x + 140, y)
-            self.ln()
+            # Calculate the number of lines needed for the value text
+            lines_needed = self.get_string_width(value) // 140 + 1
+            if lines_needed > 1:
+                # Check more precisely by splitting the text
+                words = value.split()
+                current_line = ""
+                line_count = 1
+                for word in words:
+                    test_line = current_line + " " + word if current_line else word
+                    if self.get_string_width(test_line) > 140:
+                        line_count += 1
+                        current_line = word
+                    else:
+                        current_line = test_line
+                lines_needed = line_count
+            
+            # Calculate row height based on number of lines
+            row_height = base_height * lines_needed
+            
+            # Store current position
+            start_x = self.get_x()
+            start_y = self.get_y()
+            
+            # Draw the "What" cell with calculated height and vertical centering
+            self.cell(50, row_height, what, 1, 0, "L")
+            
+            # Move to value column position
+            self.set_xy(start_x + 50, start_y)
+            
+            # For multi-line text, we need to manually center it vertically
+            if lines_needed > 1:
+                # Calculate vertical offset to center the text
+                text_height = lines_needed * base_height
+                vertical_offset = (row_height - text_height) / 2
+                
+                # Draw border first
+                self.cell(140, row_height, "", 1, 0, "L")
+                
+                # Move to text position with vertical centering
+                self.set_xy(start_x + 50 + 2, start_y + vertical_offset)  # +2 for left padding
+                
+                # Draw the multi-line text without border (since we already drew it)
+                self.multi_cell(136, base_height, value, border=0, align="L")  # 136 = 140 - 4 for padding
+            else:
+                # Single line - use regular cell with vertical centering
+                self.cell(140, row_height, value, 1, 0, "L")
+            
+            # Move to next row
+            self.set_xy(start_x, start_y + row_height)
+            
         self.ln(3)
-
+from fpdf import FPDF
 
 # === Main Function ===
 def create_trade_report_pdf(file_path: str, date: str, trades: List[Trade], overviews: List[OverView], windows: List[Windows], offers_bids: List[Offers_Bids]):
