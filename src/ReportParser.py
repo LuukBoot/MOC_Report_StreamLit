@@ -11,6 +11,7 @@ class ParsedReport:
         self.offers_bids: List[Offers_Bids] = []
         self.overviews: List[OverView] = []
         self._parse()
+        self.set_type_for_trades()
 
     def _extract_date(self) -> str:
         lines = self.text.strip().splitlines()
@@ -80,7 +81,7 @@ class ParsedReport:
                         trade_lines.append(trade_line)
                     if trade_lines:
                         raw_text = "\n".join(trade_lines)
-                        self.trades.append(RawTradeText(product=product, text=raw_text))
+                        self.trades.append(RawTradeText(product=product, text=raw_text, type="Trades"))
 
                 elif "Average Price" in line:
                     # Try to match both "$-1.38" and "$ -1.38" and also handle possible tabs/spaces
@@ -116,6 +117,56 @@ class ParsedReport:
                 total_volume=total_volume,
                 week_volume=week_volume
             ))
+
+    def set_type_for_trades(self):
+        new_trades = []
+        
+        for trade in self.trades:
+            text = trade.text.strip()
+            
+            # Check if the text contains "last bid" or "last offer"
+            has_last_bid = "last bid" in text.lower()
+            has_last_offer = "last offer" in text.lower()
+            
+            if has_last_bid or has_last_offer:
+                # Split the text by lines to handle multiple last bids/offers
+                lines = text.split('\n')
+                
+                for line in lines:
+                    line = line.strip()
+                    if not line:
+                        continue
+                        
+                    if line.lower().startswith("last bid"):
+                        # Extract everything after "last bid"
+                        bid_text = line[8:].strip()  # Remove "last bid" prefix
+                        new_trades.append(RawTradeText(
+                            product=trade.product,
+                            text=bid_text,
+                            type="last bid"
+                        ))
+                    elif line.lower().startswith("last offer"):
+                        # Extract everything after "last offer"
+                        offer_text = line[10:].strip()  # Remove "last offer" prefix
+                        new_trades.append(RawTradeText(
+                            product=trade.product,
+                            text=offer_text,
+                            type="last offer"
+                        ))
+                    else:
+                        # If it's not a last bid/offer line, treat as regular trade
+                        new_trades.append(RawTradeText(
+                            product=trade.product,
+                            text=line,
+                            type="trade"
+                        ))
+            else:
+                # No last bid or last offer, just regular trades
+                trade.type = "trade"
+                new_trades.append(trade)
+        
+        # Replace the old trades list with the new one
+        self.trades = new_trades
 
     def get_window_data(self) -> List[Windows]:
         return self.windows

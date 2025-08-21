@@ -41,9 +41,9 @@ class TradeReportPDF(FPDF):
             self.ln()
         self.ln(5)
 
-    def add_trades_section(self, product_name: str, trades: List[Trade]):
+    def add_trades_section(self, product_name: str, trades: List[Trade], trade_type: str):
         self.set_font("Helvetica", "B", 14)
-        self.cell(0, 8, f"{product_name} - Trades", ln=True)
+        self.cell(0, 8, f"{product_name} - {trade_type.title()}", ln=True)
         self.set_fill_color(34, 139, 34)
         self.set_text_color(255, 255, 255)
         self.set_font("Helvetica", "B", 11)
@@ -204,8 +204,12 @@ def create_trade_report_pdf(file_path: str, date: str, trades: List[Trade], over
         offers = [ob.participant for ob in offers_bids if ob.product == product_name and ob.type == "offer"]
         bids = [ob.participant for ob in offers_bids if ob.product == product_name and ob.type == "bid"]
 
-        # Trades table
-        pdf.add_trades_section(product_name, product_trades)
+        # Group trades by type and create separate tables
+        trade_types = ["trade", "last bid", "last offer"]
+        for trade_type in trade_types:
+            type_trades = [t for t in product_trades if t.type == trade_type]
+            if type_trades:  # Only create table if there are trades of this type
+                pdf.add_trades_section(product_name, type_trades, trade_type)
 
         # Overview table
         if product_overview:

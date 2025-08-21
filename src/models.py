@@ -6,6 +6,7 @@ from typing import Optional
 class RawTradeText:
     product: str 
     text: str
+    type: str  # "trade" or "last bid" or "last offer"
 
 
 
@@ -19,6 +20,7 @@ class Trade:
     seller: str
     window: str
     raw_text: str
+    type: str # "trade" or "last bid" or "last offer"
 
     
     

@@ -1,39 +1,26 @@
-Date: 2024-02-20
-
-Window dates:
-FE  20-21 Feb
-MW  22-23 Feb
-BE  24-25 Feb
-
-===============================
-ULSD 10ppm barges:
-
-Offers: Chevron/ConocoPhillips/Marathon
-Bids: Valero/Phillips66
-
-Trades:
-Chevron sold 8.2kt to Valero at $665.25 for FE window
-ConocoPhillips sold 6.5kt to Phillips66 at $667.50 for MW window
-Marathon sold 4.8kt to Valero at $663.00 for BE window
-Chevron sold 5.5kt to Phillips66 at $666.75 for FE window
-
-Average Price: $665.63
-Total Volume: 25.0
-Total volume this week: 18.5
-All volume up till now: 53.5
-
-===============================
-50ppm barges:
-
-Offers: Mercuria/Glencore
-Bids: Cargill/ADM
-
-Trades:
-Mercuria sold 7.2kt to Cargill at $658.00 for FE window
-Glencore sold 5.8kt to ADM at $659.50 for MW window
-Mercuria sold 6.1kt to Cargill at $657.25 for BE window
-
-Average Price: $658.25
-Total Volume: 19.1
-Total volume this week: 15.2
-All volume up till now: 34.7
+W       21-25
+BE           24-28
+ 
+====================================================================================================================
+ 
+ULSD 10ppm barges :
+ 
+Offers   :             
+Bids       :              GUNVORSA/TRAFI/GLENCOREUK/MUSKETEUR/HARTREEUK
+Trades  :             
+ 
+ 
+ 
+last bid FE GUNVORSA @ $8.00 / FE TRAFI @ $7.00 / FE GLENCOREUK @ $7.00 / FE MUSKETEUR @ $8.00 / MW GUNVORSA @ $7.00 / MW TRAFI @ $6.00 / MW GLENCOREUK @ $6.00 / MW MUSKETEUR @ $6.00 / MW HARTREEUK @ $5.00
+ 
+====================================================================================================================
+ 
+50ppm barges :
+ 
+Offers   :              GLENCOREUK
+Bids       :              TRAFI
+Trades  :             
+ 
+ 
+last offer FE GLENCOREUK @ $6.00
+last bid FE TRAFI @ $4.00

@@ -71,6 +71,7 @@ def extract_trades_from_rawtext(raw_trade: RawTradeText, date: str) -> List[Trad
             seller=trade_dict.get("seller"),
             window=trade_dict.get("window"),
             raw_text=trade_dict.get("raw_text"),
+            type=raw_trade.type  # Use the type from the raw trade
         ))
     json_result = trades
     return json_result
