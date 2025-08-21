@@ -194,8 +194,6 @@ def create_trade_report_pdf(file_path: str, date: str, trades: List[Trade], over
 
     # Group trades by product
     products = sorted(set(t.product for t in trades))
-    products = ["ULSD 10ppm barges", "50ppm barges"]
-    print(f"Found products: {products}")
     for idx, product_name in enumerate(products):
         # Add a new page for the second product and beyond
         if idx > 0:

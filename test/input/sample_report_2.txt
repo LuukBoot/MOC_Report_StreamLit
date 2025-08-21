@@ -1,0 +1,39 @@
+Date: 2024-02-20
+
+Window dates:
+FE  20-21 Feb
+MW  22-23 Feb
+BE  24-25 Feb
+
+===============================
+ULSD 10ppm barges:
+
+Offers: Chevron/ConocoPhillips/Marathon
+Bids: Valero/Phillips66
+
+Trades:
+Chevron sold 8.2kt to Valero at $665.25 for FE window
+ConocoPhillips sold 6.5kt to Phillips66 at $667.50 for MW window
+Marathon sold 4.8kt to Valero at $663.00 for BE window
+Chevron sold 5.5kt to Phillips66 at $666.75 for FE window
+
+Average Price: $665.63
+Total Volume: 25.0
+Total volume this week: 18.5
+All volume up till now: 53.5
+
+===============================
+50ppm barges:
+
+Offers: Mercuria/Glencore
+Bids: Cargill/ADM
+
+Trades:
+Mercuria sold 7.2kt to Cargill at $658.00 for FE window
+Glencore sold 5.8kt to ADM at $659.50 for MW window
+Mercuria sold 6.1kt to Cargill at $657.25 for BE window
+
+Average Price: $658.25
+Total Volume: 19.1
+Total volume this week: 15.2
+All volume up till now: 34.7

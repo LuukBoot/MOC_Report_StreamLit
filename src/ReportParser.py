@@ -23,21 +23,15 @@ class ParsedReport:
 
     def _parse_windows(self):
         lines = self.text.strip().splitlines()
-        for i, line in enumerate(lines):
-            if line.strip().startswith("Window dates:"):
-                # same-line data
-                after_colon = line.split(":", 1)[1].strip()
-                if after_colon:
-                    match = re.match(r"(FE|MW|BE)[\t ]+(\d{1,2}-\d{1,2}(?:\s+\w+)?)", after_colon)
-                    if match:
-                        self.windows.append(Windows(type=match.group(1), Dates=match.group(2)))
-
-                for j in range(i + 1, min(i + 5, len(lines))):
-                    l = lines[j].strip()
-                    match = re.match(r"(FE|MW|BE)[\t ]+(\d{1,2}-\d{1,2}(?:\s+\w+)?)", l)
-                    if match:
-                        self.windows.append(Windows(type=match.group(1), Dates=match.group(2)))
-                break
+        
+        # Look for window data in all lines, not just after "Window dates:"
+        for line in lines:
+            line = line.strip()
+            if line:
+                # Match window type followed by whitespace and date range
+                match = re.match(r"(FE|MW|BE)\s+(\d{1,2}-\d{1,2}(?:\s+\w+)?)", line)
+                if match:
+                    self.windows.append(Windows(type=match.group(1), Dates=match.group(2)))
 
     def _parse_sections(self):
         product_sections = re.split(r"=+\n", self.text)[1:]
