@@ -1,0 +1,31 @@
+Date: 13-06-2025
+
+Window dates:
+FE 18-22
+MW 21-25
+BE 24-28
+ 
+
+====================================================================================================================
+ 
+ULSD 10ppm barges :
+ 
+Offers :
+Bids : GUNVORSA/TRAFI/GLENCOREUK/MUSKETEUR/HARTREEUK
+Trades :
+ 
+
+last bid FE GUNVORSA @ $8.00 / FE TRAFI @ $7.00 / FE GLENCOREUK @ $7.00 / FE MUSKETEUR @ $8.00 / MW GUNVORSA @ $7.00 / MW TRAFI @ $6.00 / MW GLENCOREUK @ $6.00 / MW MUSKETEUR @ $6.00 / MW HARTREEUK @ $5.00
+ 
+
+====================================================================================================================
+ 
+50ppm barges :
+ 
+Offers : GLENCOREUK
+Bids : TRAFI
+Trades :
+ 
+
+last offer FE GLENCOREUK @ $6.00
+last bid FE TRAFI @ $4.00

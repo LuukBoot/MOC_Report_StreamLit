@@ -32,14 +32,13 @@ def run_debug_logic():
     
     # Load sample file
     input_dir = current_dir / 'test' / 'input'
-    sample_files = list(input_dir.glob('*.txt'))
-    
-    if not sample_files:
-        print("❌ No sample files found in test/input directory")
+    sample_file_name = "sample_report_5.txt"
+    sample_file = input_dir / sample_file_name
+
+    if not sample_file.exists():
+        print(f"❌ File not found: {sample_file}")
         return
-    
-    # Use the first sample file
-    sample_file = sample_files[0]
+
     print(f"📄 Loading file: {sample_file.name}")
     
     # Read the report text

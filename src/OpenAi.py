@@ -32,8 +32,8 @@ def extract_trades_from_rawtext(raw_trade: RawTradeText, date: str) -> List[Trad
                     '  "product": "string",\n'
                     '  "price": float or null, // always extract numeric value, may be negative, may be prefixed by $ or -\n'
                     '  "volume_kt": float or null,\n'
-                    '  "buyer": "string or null",\n'
-                    '  "seller": "string or null",\n'
+                    '  "buyer": "string or null // can not be an "FE", "MW", "BE"\n'
+                    '  "seller": "string or null", can not be an "FE", "MW", "BE"\n'
                     '  "window": "string or null", // must be one of: "FE", "MW", "BE"\n'
                     '  "raw_text": "string"\n'
                     "}\n\n"
@@ -44,7 +44,10 @@ def extract_trades_from_rawtext(raw_trade: RawTradeText, date: str) -> List[Trad
                     "4. Use null for any field where information is not present.\n"
                     "5. The number of JSON objects must equal the number of detected trades in the text.\n"
                     "6. Do not include any text outside the JSON output.\n"
-                    "7. The first company mentioned in each trade is always the seller, and the second company is always the buyer."
+                    "7. The first company mentioned in each trade is always the seller, and the second company is always the buyer.\n"
+                    "8. If type is equal to: last bid it only includes an buyer and NO seller make seller equal to null \n"
+                    "9. If the buyer is equal to: last bid it only includes an seller and NO buyer make buyer equal to null \n"
+
                 )
             },
             {
