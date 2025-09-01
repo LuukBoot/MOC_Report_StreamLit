@@ -32,7 +32,7 @@ def run_debug_logic():
     
     # Load sample file
     input_dir = current_dir / 'test' / 'input'
-    sample_file_name = "sample_report_5.txt"
+    sample_file_name = "sample_report_6.txt"
     sample_file = input_dir / sample_file_name
 
     if not sample_file.exists():

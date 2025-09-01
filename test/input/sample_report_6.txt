@@ -1,0 +1,40 @@
+Date: 29-08-2025
+ 
+Window dates:           
+FE   03-07
+MW   06-10
+BE   09-13
+ 
+ 
+===========================================================================================================
+ULSD 10ppm barges                                                                                    :
+ 
+Offers :EXTAP/STR/VITOL/TOTSA/ARAMCOT
+Bids   :GLENCOREUK/TRAFI/GUNVORSA/VITOL
+ 
+Trades :
+- Platts ULSD Brg 1-3kt ICE LSGO M1 ARA Smr FE 1-3kt done $ 1.25 for 3.00 EXTAP GUNVORSA
+- Platts ULSD Brg 1-3kt ICE LSGO M1 ARA Smr FE 1-3kt done $ 1.25 for 3.00 EXTAP GLENCOREUK
+- Platts ULSD Brg 1-3kt ICE LSGO M1 ARA Smr FE 1-3kt done $ 1.25 for 3.00 EXTAP GUNVORSA
+- Platts ULSD Brg 1-3kt ICE LSGO M1 ARA Smr FE 1-3kt done $ 1.25 for 3.00 EXTAP GLENCOREUK
+- Platts ULSD Brg 1-3kt ICE LSGO M1 ARA Smr FE 1-3kt done $ 1.25 for 1.40 EXTAP VITOL
+- Platts ULSD Brg 1-3kt ICE LSGO M1 ARA Smr FE 1-3kt done $ 1.25 for 3.00 EXTAP TRAFI
+- Platts ULSD Brg 1-3kt ICE LSGO M1 ARA Smr FE 1-3kt done $ 1.00 for 3.00 BELGOMINE GLENCOREUK
+- Platts ULSD Brg 1-3kt ICE LSGO M1 ARA Smr BE 1-3kt done $ 1.50 for 3.00 ARAMCOT GLENCOREUK
+ 
+Average Price :  $1.25
+Total Volume  :  22.40 kt
+--------------------------------------------------------------------------
+Total volume this week (NR 35)                : 106.59 kt
+All volume up till now                        : 5397.20 kt
+Average Price                                 : $1.57
+ 
+===========================================================================================================
+50ppm barges                                                                                         :
+ 
+Offers :VITOL/BELGOMINE
+Bids   :
+ 
+Trades :
+ 
+  last offer FE VITOL @ $-1.00 / FE BELGOMINE @ $-3.00
