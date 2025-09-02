@@ -46,7 +46,7 @@ def extract_trades_from_rawtext(raw_trade: RawTradeText, date: str) -> List[Trad
                     "6. Do not include any text outside the JSON output.\n"
                     "7. If type is equal to is trade than there is always and buyer and a seller\n"
                     "8. If type is equal to: last bid it only includes an buyer and NO seller make seller equal to null \n"
-                    "9. If the buyer is equal to: last bid it only includes an seller and NO buyer make buyer equal to null \n"
+                    "9. If type is equal to: last offer it only includes an SELLER and NO buyer make buyer equal to null \n"
                     "10. When the type is equal to trade then the first company that is called is ALWAYS the seller and the second company is ALWAYS the buyer."
 
                 )
