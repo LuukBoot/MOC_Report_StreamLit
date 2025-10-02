@@ -78,3 +78,26 @@ def extract_trades_from_rawtext(raw_trade: RawTradeText, date: str) -> List[Trad
         ))
     json_result = trades
     return json_result
+
+
+def summarize_pdf_text(pdf_text: str) -> str:
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {
+                "role": "system",
+                "content": (
+                    "You are an AI that creates concise summaries of PDF text content.\n"
+                    "Your output should be a clear, informative summary that captures the key points and main themes of the document.\n"
+                    "Keep the summary focused and relevant to the document's content.\n"
+                    "Provide only the summary text without any additional formatting or explanations. Make it only 3 sentences\n"
+                )
+            },
+            {
+                "role": "user",
+                "content": f"Please summarize the following PDF text:\n\n{pdf_text}"
+            }
+        ],
+    )
+    
+    return response.choices[0].message.content
