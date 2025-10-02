@@ -73,6 +73,10 @@ class PjkGasoilExtractor:
 
                 # Start collecting data from the next line
                 for j in range(i, len(lines)):
+                    
+                    # make sure if the line has CHF in it, we skip it
+                    if "CHF" in lines[j]:
+                        continue
                     self.data_text.append(lines[j])
                     if lines[j].startswith(self.line_text_end_data_rhine):
                         break
