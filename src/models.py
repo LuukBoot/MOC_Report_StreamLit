@@ -9,7 +9,7 @@ class RawTradeText:
     type: str  # "trade" or "last bid" or "last offer"
 
 
-
+# update
 @dataclass
 class Trade:
     date: str
