@@ -115,7 +115,7 @@ class PjkGasoilExtractor:
             else:
                 raise ValueError(f"Could not extract location from line: {line}")
 
-    def add_price_ranges(self, lower_variance: float = 0.5, upper_variance: float = 1.0):
+    def add_price_ranges(self, lower_variance: float = 0.1, upper_variance: float = 0.1):
         """Add price range columns to the dataframe.
         
         Args:

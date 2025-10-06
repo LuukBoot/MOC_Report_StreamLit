@@ -229,7 +229,7 @@ def show_barging_update():
     if st.button(f"Create barging PDF Report"):
         # You can add PDF generation logic here
             pdf = TradeReportPDF(orientation="P", unit="mm", format="A4")
-            pdf.report_date = "2025-08-01"
+            pdf.report_date = datetime.now().strftime("%d-%m-%Y")
             
             # add two pages 
             pdf.add_page()
