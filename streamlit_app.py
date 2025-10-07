@@ -147,13 +147,13 @@ def show_barging_update():
                 # ARA Variance inputs
                 col1, col2, col3 = st.columns(3)
                 with col1:
-                    st.number_input("Lower Variance:", key='lower_variance_ara', value=-0.1)
+                    st.number_input("Lower Variance:", key='lower_variance_ara', value=0.1)
                 with col2:
                     st.number_input("Upper Variance:", key='upper_variance_ara', value=0.1)
                 with col3:
                     if st.button("Update Price Ranges", key="update_ara_ranges", use_container_width=True):
                         extractorAra.add_price_ranges(
-                            lower_variance=st.session_state.get('lower_variance_ara', -0.1),
+                            lower_variance=st.session_state.get('lower_variance_ara', 0.1),
                             upper_variance=st.session_state.get('upper_variance_ara', 0.1)
                         )
                         st.success("✅ Price ranges updated!")
@@ -177,14 +177,14 @@ def show_barging_update():
                 # Rhine DataFrame
                 col1, col2, col3 = st.columns([1,6,1])
                 with col1:
-                    st.number_input("Lower Variance:", key='lower_variance_rhine', value = -0.1)
+                    st.number_input("Lower Variance:", key='lower_variance_rhine', value = 0.1)
                 with col2:
                     st.number_input("Upper Variance:", key='upper_variance_rhine', value = 0.1)
                 with col3:
                     if st.button("Update Price Ranges", use_container_width=True):
                         extractorRhine.add_price_ranges(
-                            lower_variance=st.session_state.get('lower_variance_rhine', 0.5),
-                            upper_variance=st.session_state.get('upper_variance_rhine', 1.0)
+                            lower_variance=st.session_state.get('lower_variance_rhine', 0.1),
+                            upper_variance=st.session_state.get('upper_variance_rhine', 0.1)
                         )
                         st.success("✅ Price ranges updated!")
                 
