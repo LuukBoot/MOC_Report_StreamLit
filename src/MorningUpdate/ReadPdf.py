@@ -4,7 +4,7 @@ import re
 
 from src.OpenAi import summarize_pdf_text
 
-class PjkGasoilExtractor:
+class GasOilExtractor:
     
     # standard info 
     page_num_table = 0
@@ -115,15 +115,16 @@ class PjkGasoilExtractor:
             else:
                 raise ValueError(f"Could not extract location from line: {line}")
 
-    def add_price_ranges(self, lower_variance: float = 0.1, upper_variance: float = 0.1):
+    def set_price_ranges(self):
         """Add price range columns to the dataframe.
         
         Args:
             lower_variance (float): Amount to subtract from avg price for minimum.
             upper_variance (float): Amount to add to avg price for maximum.
         """
-        self.df['min price'] = self.df['avg price'] - lower_variance
-        self.df['max price'] = self.df['avg price'] + upper_variance
+        # Round down to nearest 0.10 for min price and round up to nearest 0.10 for max price
+        self.df['min price'] = (self.df['avg price'] // 0.10) * 0.10
+        self.df['max price'] = ((self.df['avg price'] // 0.10) + 1) * 0.10
         
         # add an column that will be displayed in the column on the pdf 
         self.df['price range'] = self.df.apply(lambda row: f"EUR {row['min price']:.2f} - {row['max price']:.2f}", axis=1)
@@ -141,10 +142,5 @@ class PjkGasoilExtractor:
 
 
 
-# --- Example usage ---
-if __name__ == "__main__":
-    extractor = PjkGasoilExtractor("pjk_rhine_2025.08.01.pdf")
-    extractor.extract_routes()
-    df = extractor.to_dataframe()
-    print(df)
+
 

@@ -11,7 +11,7 @@ sys.path.insert(0, src_path)
 try:
     from src.ReportParser import ParsedReport
     from src.OpenAi import extract_trades_from_rawtext
-    from MorningUpdate.ReadPdf import PjkGasoilExtractor
+    from MorningUpdate.ReadPdf import GasOilExtractor
     from src.PdfCreation import TradeReportPDF
     import time
     import json
@@ -106,10 +106,10 @@ def show_barging_update():
                 
                 try:
                     # Initialize the extractor
-                    extractor = PjkGasoilExtractor(temp_path)
+                    extractor = GasOilExtractor(temp_path)
                     extractor.set_data_text()
                     extractor.set_df()
-                    extractor.add_price_ranges()
+                    extractor.set_price_ranges()
                     extractor.set_summary_text()
                     
                     extractor_files.append(extractor)
@@ -134,7 +134,7 @@ def show_barging_update():
 
 
         for extractor in st.session_state['extractor_files']:
-            extractor : PjkGasoilExtractor
+            extractor : GasOilExtractor
             if extractor.type_report == "ARA":
                 extractorAra = extractor
             elif extractor.type_report == "Rhine":
@@ -143,23 +143,10 @@ def show_barging_update():
         # Display ARA section
         if extractorAra:
             with st.expander("🏭 ARA Data", expanded=True):
-                
-                # ARA Variance inputs
-                col1, col2, col3 = st.columns(3)
-                with col1:
-                    st.number_input("Lower Variance:", key='lower_variance_ara', value=0.1)
-                with col2:
-                    st.number_input("Upper Variance:", key='upper_variance_ara', value=0.1)
-                with col3:
-                    if st.button("Update Price Ranges", key="update_ara_ranges", use_container_width=True):
-                        extractorAra.add_price_ranges(
-                            lower_variance=st.session_state.get('lower_variance_ara', 0.1),
-                            upper_variance=st.session_state.get('upper_variance_ara', 0.1)
-                        )
-                        st.success("✅ Price ranges updated!")
-                
+
+
                 # ARA DataFrame
-                show_df_ara = extractorAra.df[['location', 'avg price', 'price range']]
+                show_df_ara = extractorAra.df[['location', 'avg price', 'min price', 'max price', 'price range']]
                 st.dataframe(show_df_ara, use_container_width=True)
                 
                 # ARA Summary input
@@ -174,21 +161,7 @@ def show_barging_update():
         # Display Rhine section
         if extractorRhine:
             with st.expander("🚢 Rhine Data", expanded=True):
-                # Rhine DataFrame
-                col1, col2, col3 = st.columns([1,6,1])
-                with col1:
-                    st.number_input("Lower Variance:", key='lower_variance_rhine', value = 0.1)
-                with col2:
-                    st.number_input("Upper Variance:", key='upper_variance_rhine', value = 0.1)
-                with col3:
-                    if st.button("Update Price Ranges", use_container_width=True):
-                        extractorRhine.add_price_ranges(
-                            lower_variance=st.session_state.get('lower_variance_rhine', 0.1),
-                            upper_variance=st.session_state.get('upper_variance_rhine', 0.1)
-                        )
-                        st.success("✅ Price ranges updated!")
-                
-                show_df_rhine = extractorRhine.df[['location', 'avg price', 'price range']]
+                show_df_rhine = extractorRhine.df[['location', 'avg price', 'min price', 'max price', 'price range']]
                 st.dataframe(show_df_rhine, use_container_width=True)
 
                 # Rhine Summary input

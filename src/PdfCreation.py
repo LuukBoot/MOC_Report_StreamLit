@@ -1,6 +1,6 @@
 from fpdf import FPDF
 import os
-from src.MorningUpdate.ReadPdf import PjkGasoilExtractor
+from src.MorningUpdate.ReadPdf import GasOilExtractor
 
 
 
@@ -21,7 +21,7 @@ class TradeReportPDF(FPDF):
         self.set_font("Helvetica", "I", 8)
         self.cell(0, 10, f"Page {self.page_no()}", align="C")
 
-    def add_ara_section(self, araData :PjkGasoilExtractor):
+    def add_ara_section(self, araData :GasOilExtractor):
         df = araData.df
         
         # only add the columns location and price range
@@ -53,9 +53,7 @@ class TradeReportPDF(FPDF):
         summary_text = araData.summary_text.encode('latin-1', 'replace').decode('latin-1')
         self.multi_cell(0, 6, summary_text)
         
-            
-    
-    def add_rhine_section(self, rhineData :PjkGasoilExtractor):
+    def add_rhine_section(self, rhineData :GasOilExtractor):
         df = rhineData.df
         
         # only add the columns location and price range
