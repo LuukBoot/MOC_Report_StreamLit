@@ -13,7 +13,7 @@ class TradeReportPDF(FPDF):
         self.set_font("Helvetica", "B", 16)
         self.cell(0, 10, "Starfuels Report", ln=True, align="C")
         self.set_font("Helvetica", "", 12)
-        self.cell(0, 8, f"MOC Summary {self.report_date}", ln=True, align="C")
+        self.cell(0, 8, f"Barge market update {self.report_date}", ln=True, align="C")
         self.ln(5)
 
     def footer(self):
