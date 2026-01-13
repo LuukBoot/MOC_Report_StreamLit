@@ -7,6 +7,7 @@ import streamlit as st
 
 
 openai_key = st.secrets["OPENAI_API_KEY"]
+prompt = st.secrets["PROMPT"]
 
 
 
@@ -86,12 +87,7 @@ def summarize_pdf_text(pdf_text: str) -> str:
         messages=[
             {
                 "role": "system",
-                "content": (
-                    "You are an AI that creates concise summaries of PDF text content.\n"
-                    "Your output should be a clear, informative summary that captures the key points and main themes of the document.\n"
-                    "Keep the summary focused and relevant to the document's content.\n"
-                    "Provide only the summary text without any additional formatting or explanations. Make it only 3 sentences\n"
-                )
+                "content": prompt
             },
             {
                 "role": "user",
